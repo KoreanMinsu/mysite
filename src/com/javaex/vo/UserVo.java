@@ -2,12 +2,16 @@ package com.javaex.vo;
 
 public class UserVo {
 //field
+	private int no;
 	private String id;
 	private String password;
 	private String name;
 	private String gender;
 	
 //constructor	
+	public UserVo() {
+	}
+	
 	public UserVo(String id, String password, String name, String gender) {
 		this.id = id;
 		this.password = password;
@@ -17,6 +21,13 @@ public class UserVo {
 	
 
 //method-g/s	
+	public void setNo(int no) {
+		
+	}
+	
+	public int getNo() {
+		return no;
+	}
 	
 	public String getId() {
 		return id;

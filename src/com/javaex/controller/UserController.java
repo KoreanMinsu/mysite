@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.UserDao;
 import com.javaex.util.WebUtil;
@@ -50,7 +51,7 @@ public class UserController extends HttpServlet {
 			
 			//dao.insert(vo)로 DB저장
 			UserDao userDao = new UserDao();
-			int count = userDao.userInsert(userVo);
+			userDao.userInsert(userVo);
 			
 			//포워드
 			WebUtil.forward(request, response, "WEB-INF/views/user/joinOk.jsp");
@@ -59,8 +60,54 @@ public class UserController extends HttpServlet {
 			//로그인폼
 			System.out.println("[LoginForm]");
 			
+			
 			//포워드
 			WebUtil.forward(request, response, "WEB-INF/views/user/loginForm.jsp");
+			
+		}else if("login".equals(action)) {
+			//login
+			System.out.println("[login]");
+			
+			//parameter 호출
+			String id = request.getParameter("id");
+			String pw = request.getParameter("password");
+			//System.out.println(id +"," +pw);
+			
+			//Vo묶기
+			UserDao userDao = new UserDao();
+			//DB반영
+			UserVo userVo = userDao.getUser(id, pw);
+			
+		
+			
+			
+			if(userVo !=null) {
+				System.out.println("로그인성공");
+				//성공시(ID PASS 일치) 세션 저장
+				HttpSession session = request.getSession();
+				session.setAttribute("authUser", userVo); //JSP 데이터전달 REQUEST.setattribute와 비교
+				
+				//redirect
+				WebUtil.redirect(request, response, "/mysite/main");
+				
+			}else {
+				System.out.println("로그인 실패");
+			
+				//redirect - login form page
+				WebUtil.redirect(request, response, "/mysite/user?action=loginForm&result=fail");
+			}
+			
+			
+			
+			
+		}else if("logout".equals(action)) {
+			//logout
+			System.out.println("[logout]");
+			
+			//세션의 정보삭제(authUser)
+			HttpSession session = request.getSession();
+			session.removeAttribute("authUser");
+			session.invalidate();
 			
 		}
 	}

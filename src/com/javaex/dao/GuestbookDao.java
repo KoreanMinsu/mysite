@@ -38,15 +38,12 @@ public class GuestbookDao {
 	//close() 자원관리
 	private void close() {
 		try {
-			if(rs!=null) {
+			if(rs!=null) 
 				rs.close();
-			}
-			if(pstmt!=null) {
+			if(pstmt!=null) 
 				pstmt.close();
-			}
-			if(conn!=null) {
+			if(conn!=null) 
 				conn.close();
-			}
 		}catch(SQLException e) {
 			System.out.println("error:"+e);
 		}
@@ -58,7 +55,8 @@ public class GuestbookDao {
 		getConnection();
 		
 		try {
-			String query=" INSERT INTO guestbook ";
+			String query="";
+			query+= " INSERT INTO guestbook ";
 			query+=" VALUES ( seq_no.NEXTVAL, ?, ?, ?, sysdate ) ";
 			
 			pstmt=conn.prepareStatement(query);

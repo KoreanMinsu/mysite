@@ -79,4 +79,40 @@ public class UserDao {
 	//update
 	//List
 	
+	//유저 1명 정보
+	public UserVo getUser(String id, String pass) {
+		UserVo userVo = null;
+		//return 값 초기화
+		getConnection();
+		
+		try {
+			String query="";
+			query+= " SELECT no, ";
+			query+= "        name ";
+			query+= " FROM users ";
+			query+= " WHERE id = ? ";
+			query+= " AND password = ? ";
+			
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, "id");
+			pstmt.setString(2, "pass");
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				int no = rs.getInt("no");
+				String name = rs.getString("name");
+				
+				//생성자 없을시 Setter 이용
+				userVo = new UserVo();
+				userVo.setNo(no);
+				userVo.setName(name);
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		close();
+		return userVo;
+	}
+	
 }
