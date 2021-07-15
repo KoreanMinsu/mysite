@@ -74,7 +74,7 @@ public class GuestbookDao {
 			}
 			
 		} catch(SQLException e) {
-			System.out.println("error:"+e);
+			e.printStackTrace();
 		}
 		close();
 		return count;
@@ -96,8 +96,14 @@ public class GuestbookDao {
 			pstmt.setString(2, gbVo.getPassword());
 			
 			count = pstmt.executeUpdate();
+			
+			if(count>0) {
+				System.out.println(count+" 건 삭제함");
+			} else {
+				System.out.println("관리자문의");
+			}
 		} catch(SQLException e) {
-			System.out.println("error:"+e);
+			e.printStackTrace();
 		}		
 		close();
 		return count;
@@ -114,7 +120,7 @@ public class GuestbookDao {
 			query+="         name, ";
 			query+="         password, ";
 			query+="         content, ";
-			query+="         reg_date, ";
+			query+="         reg_date ";
 			query+=" FROM guestbook ";
 			query+=" ORDER BY reg_date DESC ";
 			
@@ -133,7 +139,7 @@ public class GuestbookDao {
 			}
 			
 		}catch(SQLException e) {
-			System.out.println("error:"+e);
+			e.printStackTrace();
 		}
 		close();
 		return gbList;

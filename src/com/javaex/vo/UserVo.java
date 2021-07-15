@@ -8,7 +8,9 @@ public class UserVo {
 	private String name;
 	private String gender;
 	
-//constructor	
+
+
+	//constructor	
 	public UserVo() {
 	}
 	
@@ -19,6 +21,13 @@ public class UserVo {
 		this.gender = gender;
 	}
 	
+	public UserVo(int no, String id, String password, String name, String gender) {
+		this.no = no;
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.gender = gender;
+	}
 
 //method-g/s	
 	public void setNo(int no) {

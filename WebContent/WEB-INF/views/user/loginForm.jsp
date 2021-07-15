@@ -62,7 +62,7 @@
 								>
 							</div>
 							
-							<%if("fail".equals(result)) {%>
+							<% if ("fail".equals(result)) {%>
 							<p>
 								로그인에 실패하였습니다. 다시 로그인해 주세요
 							</p>

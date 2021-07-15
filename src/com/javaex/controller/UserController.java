@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.javaex.dao.UserDao;
 import com.javaex.util.WebUtil;
@@ -40,7 +41,7 @@ public class UserController extends HttpServlet {
 			
 			//파라미터 호출
 			String userId = request.getParameter("id");
-			String password = request.getParameter("pw");
+			String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
 			//System.out.println(userId +"," +password +","+ name+"," + gender);  확인용
@@ -77,10 +78,7 @@ public class UserController extends HttpServlet {
 			UserDao userDao = new UserDao();
 			//DB반영
 			UserVo userVo = userDao.getUser(id, pw);
-			
 		
-			
-			
 			if(userVo !=null) {
 				System.out.println("로그인성공");
 				//성공시(ID PASS 일치) 세션 저장
@@ -97,9 +95,6 @@ public class UserController extends HttpServlet {
 				WebUtil.redirect(request, response, "/mysite/user?action=loginForm&result=fail");
 			}
 			
-			
-			
-			
 		}else if("logout".equals(action)) {
 			//logout
 			System.out.println("[logout]");
@@ -109,6 +104,41 @@ public class UserController extends HttpServlet {
 			session.removeAttribute("authUser");
 			session.invalidate();
 			
+		} if("modifyForm".equals(action)) {
+			//modifyForm : 로그인 상태에서만 - 세션활성화상태 어떻게?
+			System.out.println("[modifyForm]");
+			
+			//parameter 호출 (세션포함)
+			HttpSession session = request.getSession();
+			UserVo userVo= (UserVo)session.getAttribute("authUser");
+			
+			//jsp attribute
+			request.setAttribute("authUser", userVo);
+					
+			//forward
+			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyForm.jsp");
+		
+		} else if("update".equals(action)) {
+			//update
+			System.out.println("[update]");
+			
+			//parameter 추출
+			int no = Integer.parseInt(request.getParameter("no"));
+			String id = request.getParameter("id");
+			String password = request.getParameter("password");
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			
+			//VO 묶고 DB반영
+			UserDao userDao = new UserDao();
+			UserVo userVoUpdate = new UserVo(no, id, password, name, gender);
+			userDao.userUpdate(userVoUpdate);
+			
+			//세션업데이트
+			request.getSession().setAttribute("authUser", userVoUpdate);
+			
+			//redirect
+			WebUtil.redirect(request, response, "/mysite/main");
 		}
 	}
 

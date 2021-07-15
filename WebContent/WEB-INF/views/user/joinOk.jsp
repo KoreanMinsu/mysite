@@ -12,7 +12,7 @@
 <body>
 	<div id="wrap">
 
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 		<!-- header -->
 
 		<div id="container" class="clearfix">
@@ -45,7 +45,7 @@
 					<div id="joinOK">
 
 						<p class="text-large bold">
-							회원가입을 축하합니다.<br> <br> <a href="">[로그인하기]</a>
+							회원가입을 축하합니다.<br> <br> <a href="/mysite/user?action=loginForm">[로그인하기]</a>
 						</p>
 
 					</div>

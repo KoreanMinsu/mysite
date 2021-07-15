@@ -32,7 +32,7 @@ public class GuestbookVo {
 	}
 
 
-	//method-g/s	
+//method-g/s	
 	public int getNo() {
 		return no;
 	}

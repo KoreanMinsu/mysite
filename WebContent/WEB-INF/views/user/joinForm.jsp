@@ -56,7 +56,7 @@
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label class="form-text" for="input-pass">패스워드</label> <input type="text" id="input-pass"
-									name="pw" value="" placeholder="비밀번호를 입력하세요"
+									name="password" value="" placeholder="비밀번호를 입력하세요"
 								>
 							</div>
 
@@ -70,7 +70,7 @@
 							<!-- 성별 -->
 							<div class="form-group">
 								<span class="form-text">성별</span> <label for="rdo-male">남</label> <input type="radio"
-									id="rdo-male" name="male" value="male"
+									id="rdo-male" name="gender" value="male"
 								> <label for="rdo-female">여</label> <input type="radio" id="rdo-female" name="gender" value="female">
 
 							</div>

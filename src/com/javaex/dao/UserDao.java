@@ -59,7 +59,7 @@ public class UserDao {
 			String query = "";
 			query += " INSERT INTO users ";
 			query += " VALUES ( ";
-			query += "             SEQ_USER_NO.NEXTVAL. ?, ?, ?, ? ) ";	
+			query += "             SEQ_USER_NO.NEXTVAL, ?, ?, ?, ? ) ";	
 			
 			pstmt=conn.prepareStatement(query);
 			pstmt.setString(1, userVo.getId());
@@ -68,7 +68,45 @@ public class UserDao {
 			pstmt.setString(4, userVo.getGender());
 		
 			count = pstmt.executeUpdate();
+			if(count >0) {
+				System.out.println(count+"등록됨");
+			}else {
+				System.out.println("관리자문의");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		close();
+		return count;
+	}
+	//update
+	public int userUpdate(UserVo userVo) {
+		
+		int count = -1;
+		
+		getConnection();
+		
+		try {
+			String query = "";
+			query += " UPDATE users ";
+			query += " SET    password = ?, ";
+			query += "        name = ?, ";
+			query += "        gender = ? ";
+			query += " WHERE id = ? ";
 			
+			
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, userVo.getPassword());
+			pstmt.setString(2, userVo.getName());
+			pstmt.setString(3, userVo.getGender());
+			pstmt.setString(4, userVo.getId());
+		
+			count = pstmt.executeUpdate();
+			if(count >0) {
+				System.out.println(count+"수정됨");
+			}else {
+				System.out.println("관리자문의");
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -76,7 +114,8 @@ public class UserDao {
 		return count;
 	}
 	//delete
-	//update
+	
+	
 	//List
 	
 	//유저 1명 정보

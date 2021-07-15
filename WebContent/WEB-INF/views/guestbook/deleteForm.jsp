@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import ="com.javaex.vo.GuestbookVo" %>
 <%
-	GuestbookVo gbVo = (GuestbookVo)request.getAttribute("no");
+	int no = Integer.parseInt(request.getParameter("no"));
 %>
 
 
@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Guestbook Delete Form</title>
 <link href="/mysite/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="/mysite/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 
@@ -19,7 +19,7 @@
 <body>
 	<div id="wrap">
 
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 		<!-- header -->
 
 		<div id="container" class="clearfix">
@@ -58,12 +58,12 @@
 							</colgroup>
 							<tr>
 								<td>비밀번호</td>
-								<td><input type="password" name="pass"></td>
+								<td><input type="password" name="pw"></td>
 								<td class="text-left"><button type="submit">삭제</button></td>
-								<td><a href="/mysite/guest?action=addList">[메인으로 돌아가기]</a></td>
+								<td><a href="/mysite/guest?action=addList">[방명록으로 돌아가기]</a></td>
 							</tr>
 						</table>
-						<input type='hidden' name="no" value="<%=gbVo.getNo()%>">
+						<input type='hidden' name="no" value="<%=no%>">
 						<input type='hidden' name="action" value="delete">
 					</form>
 					
