@@ -121,17 +121,21 @@ public class UserController extends HttpServlet {
 		} else if("update".equals(action)) {
 			//update
 			System.out.println("[update]");
-			
+				
+			HttpSession session = request.getSession();
+
+			//세션에서 로그인 유저의 no 추출
 			//parameter 추출
-			int no = Integer.parseInt(request.getParameter("no"));
+			
+			int no = ((UserVo)session.getAttribute("authUser")).getNo();
 			String id = request.getParameter("id");
-			String password = request.getParameter("password");
+			String pw = request.getParameter("password");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
 			
 			//VO 묶고 DB반영
 			UserDao userDao = new UserDao();
-			UserVo userVoUpdate = new UserVo(no, id, password, name, gender);
+			UserVo userVoUpdate = new UserVo(no, id, pw, name, gender);
 			userDao.userUpdate(userVoUpdate);
 			
 			//세션업데이트

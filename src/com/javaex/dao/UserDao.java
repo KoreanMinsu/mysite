@@ -93,14 +93,15 @@ public class UserDao {
 			query += "        name = ?, ";
 			query += "        gender = ? ";
 			query += " WHERE id = ? ";
-			
-			
+			query += " AND no = ? ";
+			//no 추가(7/16 강의내용)
+
 			pstmt=conn.prepareStatement(query);
 			pstmt.setString(1, userVo.getPassword());
 			pstmt.setString(2, userVo.getName());
 			pstmt.setString(3, userVo.getGender());
 			pstmt.setString(4, userVo.getId());
-		
+			pstmt.setInt(5, userVo.getNo());		
 			count = pstmt.executeUpdate();
 			if(count >0) {
 				System.out.println(count+"수정됨");
