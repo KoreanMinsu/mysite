@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import ="com.javaex.vo.GuestbookVo" %>
 <%
-	int no = Integer.parseInt(request.getParameter("no"));
+	String num = request.getParameter("no");
 %>
 
 
@@ -63,7 +62,7 @@
 								<td><a href="/mysite/guest?action=addList">[방명록으로 돌아가기]</a></td>
 							</tr>
 						</table>
-						<input type='hidden' name="no" value="<%=no%>">
+						<input type='hidden' name="no" value="<%=num%>">
 						<input type='hidden' name="action" value="delete">
 					</form>
 					

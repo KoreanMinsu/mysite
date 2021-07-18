@@ -89,7 +89,7 @@ public class GuestbookDao {
 			String query ="";
 			query+=" DELETE FROM guestbook ";
 			query+=" WHERE no = ? ";
-			query+=" AND password = ? ";
+			query+=" 	AND password = ? ";
 			
 			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, gbVo.getNo());
