@@ -7,7 +7,7 @@ public class BoardVo {
 	private String  content;
 	private int hit;
 	private String reg_date;
-	private int user_no;
+	private int userNo;
 	private String name;
 
 //constructor	
@@ -15,13 +15,13 @@ public class BoardVo {
 		
 	}
 	
-	public BoardVo(int no, String title, String content, int hit, String reg_date, int user_no, String name) {
+	public BoardVo(int no, String title, String content, int hit, String reg_date, int userNo, String name) {
 		this.no = no;
 		this.title = title;
 		this.content = content;
 		this.hit = hit;
 		this.reg_date = reg_date;
-		this.user_no = user_no;
+		this.userNo = userNo;
 		this.name = name;
 	}
 
@@ -66,12 +66,12 @@ public class BoardVo {
 		this.reg_date = reg_date;
 	}
 
-	public int getUser_no() {
-		return user_no;
+	public int getUserNo() {
+		return userNo;
 	}
 
-	public void setUser_no(int user_no) {
-		this.user_no = user_no;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 	public String getName() {
@@ -87,7 +87,7 @@ public class BoardVo {
 	@Override
 	public String toString() {
 		return "BoardVo [no=" + no + ", title=" + title + ", content=" + content + ", hit=" + hit + ", reg_date="
-				+ reg_date + ", user_no=" + user_no + ", name=" + name + "]";
+				+ reg_date + ", userNo=" + userNo + ", name=" + name + "]";
 	}
 
 	

@@ -18,7 +18,7 @@
 
 
 		<!-- //header -->
-		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
 
 		<div id="container" class="clearfix">
@@ -45,6 +45,7 @@
 					<div id="writeForm">
 						<form action="board" method="get">
 						<input type='hidden' name="action" value="write">
+						
 							<!-- 제목 -->
 							<div class="form-group">
 								<label class="form-text" for="txt-title">제목</label> <input type="text" id="txt-title"
@@ -74,7 +75,7 @@
 		<!-- //container  -->
 
 
-		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 	</div>
 	<!-- //wrap -->

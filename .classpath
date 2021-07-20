@@ -14,7 +14,15 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/javastudy/workspace_web/elJstl/WebContent/WEB-INF/lib/jstl.jar"/>
-	<classpathentry kind="lib" path="C:/javastudy/workspace_web/elJstl/WebContent/WEB-INF/lib/standard.jar"/>
+	<classpathentry kind="lib" path="C:/javastudy/workspace_web/elJstl/WebContent/WEB-INF/lib/jstl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/javastudy/workspace_web/elJstl/WebContent/WEB-INF/lib/standard.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

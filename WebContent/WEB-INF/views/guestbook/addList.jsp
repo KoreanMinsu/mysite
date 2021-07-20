@@ -16,12 +16,12 @@
 <body>
 	<div id="wrap">
 
-		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 		<!-- header & nav-->
 		
 		<div id="container" class="clearfix">
 			
-			<c:import url="/WEB-INF/views/includes/aside.jsp"></c:import>
+			<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
 			<!-- //aside -->
 
 			<div id="content">
@@ -100,7 +100,7 @@
 		</div>
 		<!-- //container  -->
 
-			<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- footer -->
 		
 	</div>

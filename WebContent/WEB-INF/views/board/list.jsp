@@ -17,10 +17,10 @@
 	<div id="wrap">
 
 		<!-- header -->
-		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
 		<div id="container" class="clearfix">
-			<c:import url="/WEB-INF/views/includes/aside_board.jsp"></c:import>
+			<c:import url="/WEB-INF/views/include/aside_board.jsp"></c:import>
 			
 			<!-- //aside -->
 
@@ -61,15 +61,15 @@
 							</thead>
 							<tbody>
 								<!-- tbody 게시글 반복 출력 -->
-								<c:forEach items=${boardList }" var="bList" varStatus="status">
+								<c:forEach items="${boardList }" var="bList" varStatus="status">
 									 <tr>
 										<td>${bList.no }</td>
 										<td class="text-left"><a href="/mysite/board?action=read&no=${bList.no }">${bList.title}</a></td>
-										<td>정우성</td>
-										<td>1232</td>
-										<td>2020-12-23</td>
+										<td>${bList.name}</td>
+										<td>${bList.hit}</td>
+										<td>${bList.regDate}</td>
 										<td>
-											<c:if test="${authUser.no = bList.no }">
+											<c:if test="${sessionScope.authUser.no eq requestScope.bList.no }">
 											<a href="/mysite/board?action=delete&no=${bList.no }">[삭제]</a></c:if>
 										</td>
 									</tr>

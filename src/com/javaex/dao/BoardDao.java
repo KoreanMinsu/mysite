@@ -109,8 +109,8 @@ public class BoardDao {
 		return count;
 	}
 	
-	//list
-	public List<BoardVo> getList(){
+	//list With keyword search
+	public List<BoardVo> getList(String keyword){
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
 		getConnection();
 		
@@ -123,11 +123,24 @@ public class BoardDao {
 			query+="         reg_date ";
 			query+="         user_no ";
 			query+="         name ";
-			query+=" FROM users, board ";
-			query+=" WHERE users.no = board.user_no  ";
-			query+=" ORDER BY reg_date DESC ";
+			query+=" FROM users us LEFT OUTER JOIN board bo ON us.no = bo.user_no  ";
 			
-			pstmt=conn.prepareStatement(query);
+			if(keyword !=""|| keyword == null) {
+				query+=" WHERE title like ? ";
+				query+="    OR content like ? ";
+				query+="    OR name like ? ";
+				query+=" ORDER BY no DESC ";
+					
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1,'%'+ keyword + '%');
+				pstmt.setString(2,'%'+ keyword + '%');
+				pstmt.setString(3,'%'+ keyword + '%');
+				
+			} else {
+				query+=" ORDER BY no DESC ";
+				pstmt=conn.prepareStatement(query);
+			}
+			
 			rs= pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -223,5 +236,25 @@ public class BoardDao {
 		close();
 		return count;
 	}
-	//search
+	
+	//hit조회수
+	public void hitCount(int hitCount) {
+		getConnection();
+		
+		try {
+			String query="";
+			query+=" UPDATE board ";
+			query+=" SET hit = nvl(hit,0) + 1 ";
+			query+=" WHERE no = ? ";
+			
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, hitCount);
+			
+			pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		close();
+	}
 }

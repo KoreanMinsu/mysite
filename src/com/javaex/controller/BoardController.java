@@ -37,7 +37,7 @@ public class BoardController extends HttpServlet {
 			System.out.println("[List]");
 			
 			//data loading from DB
-			List<BoardVo> boardList = boardDao.getList();
+			List<BoardVo> boardList = boardDao.getList(null);
 
 			//attribute(data)
 			request.setAttribute("boardList", boardList);
@@ -48,8 +48,10 @@ public class BoardController extends HttpServlet {
 		}else if("read".equals(action)) {
 			//read
 			System.out.println("[read]");
-			//조회수 카운트 생각하기?? 메소드 추가? 오라클 설정?
+			//조회수 카운트 메소드 사용
+			boardDao.hitCount(1);
 			
+			//parameter 호출 
 			int no = Integer.parseInt(request.getParameter("no"));
 			BoardVo boardVo = boardDao.getList(no);
 			
@@ -59,9 +61,30 @@ public class BoardController extends HttpServlet {
 			//foward
 			WebUtil.forward(request, response, "/WEB-INF/views/board/read.jsp");
 			
+		}else if("delete".equals(action)){
+			//delete
+			System.out.println("[delete]");
+			
+			//parameter 호출 & db 반영
+			int no = Integer.parseInt(request.getParameter("no"));
+			boardDao.boardDelete(no);
+			
+			//redirect
+			WebUtil.redirect(request, response, "/mysite/board?action=list");
+			
 		}else if("writeform".equals(action)) {
 			//writeForm
 			System.out.println("[writeForm");
+			
+			//세션정보 호출-로그인유저만
+			HttpSession session = request.getSession();
+			UserVo authUser=(UserVo)session.getAttribute("authUser");
+			
+			//로그인사용자만 클릭시 등록폼
+			if(authUser != null) {
+				//forward
+				WebUtil.forward(request, response, "WEB-INF/views/board/writeForm.jsp");
+			} //비회원용
 			
 			
 		}else if("write".equals(action)) {
@@ -72,11 +95,13 @@ public class BoardController extends HttpServlet {
 			HttpSession session = request.getSession();
 			UserVo authUser = (UserVo)session.getAttribute("authUser");
 			
+			//parameter 호출
 			String title = request.getParameter("title");
 			String content = request.getParameter("content"); 
 			int no = authUser.getNo();
 			
 			BoardVo boardVo = new BoardVo();
+			//기본생성자에 지정
 			boardVo.setTitle(title);
 			boardVo.setContent(content);
 			boardVo.setNo(no);
@@ -91,19 +116,66 @@ public class BoardController extends HttpServlet {
 			//modifyForm
 			System.out.println("[modifyForm]");
 			
+			//parameter 호출
+			int no = Integer.parseInt(request.getParameter("no"));
+			BoardVo boardVo = boardDao.getList(no);
+			
+			//attribute
+			request.setAttribute("modifyBVo", boardVo);
+			
+			//foward
+			WebUtil.forward(request, response, "WEB-INF/views/board/modifyform.jsp");
 			
 		}else if("modify".equals(action)) {
 			//modify
 			System.out.println("[modify]");
+			
+			//login 상태만 가능 - 세션값 호출
+			HttpSession session = request.getSession();
+			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			
+			//parameter 호출
+			String title = request.getParameter("title");
+			String content = request.getParameter("content"); 
+			int no = Integer.parseInt(request.getParameter("no"));
+			int userNo = Integer.parseInt(request.getParameter("userNo"));
+
+			
+			//해당유저만 수정기능
+			if(authUser.getNo() == no) {
+				
+				//Vo 묶기 & DB반영
+				BoardVo boardVo = new BoardVo();
+				boardVo.setTitle(title);
+				boardVo.setContent(content);
+				boardVo.setNo(no);
+				boardVo.setUserNo(userNo);
+				boardDao.boardModify(boardVo);
+			}
+			
+			//redirect
+			WebUtil.redirect(request, response, "/mysite/board?action=list");
+			
 		}else if("search".equals(action)) {
 			//search
 			System.out.println("[search]");
+			
+			//parameter 호출
+			String keyword = request.getParameter("keyword");
+			
+			//data load from DB
+			List<BoardVo> searchList = boardDao.getList(keyword);
+			
+			//attribute
+			request.setAttribute("searchList", searchList);
+			
+			//forward
+			WebUtil.forward(request, response, "WEB-INF/views/board/list.jsp");
+			
 		}
- 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		doGet(request, response);
 	}
 
