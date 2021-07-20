@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
 <!DOCTYPE html>
@@ -14,19 +15,14 @@
 
 <body>
 	<div id="wrap">
-		
+
 		<!-- header -->
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
 
 		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>게시판</h2>
-				<ul>
-					<li><a href="">일반게시판</a></li>
-					<li><a href="">댓글게시판</a></li>
-				</ul>
-			</div>
+			<c:import url="/WEB-INF/views/include/aside_board.jsp"></c:import>
+
 			<!-- //aside -->
 
 			<div id="content">
@@ -46,7 +42,7 @@
 
 				<div id="board">
 					<div id="read">
-						<form action="#" method="get">
+						<form action="board" method="get">
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span> <span class="form-value">정우성</span>
@@ -89,7 +85,7 @@
 		</div>
 		<!-- //container  -->
 
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 	</div>
 	<!-- //wrap -->

@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../../assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="../../assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="/mysite/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="/mysite/assets/css/board.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -14,16 +16,11 @@
 	<div id="wrap">
 
 		<!-- header -->
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
 		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>게시판</h2>
-				<ul>
-					<li><a href="">일반게시판</a></li>
-					<li><a href="">댓글게시판</a></li>
-				</ul>
-			</div>
+			<c:import url="/WEB-INF/views/include/aside_board.jsp"></c:import>
+
 			<!-- //aside -->
 
 			<div id="content">
@@ -96,7 +93,7 @@
 		<!-- //container  -->
 
 
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 	</div>
 	<!-- //wrap -->

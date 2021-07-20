@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../../assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="../../assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="/mysite/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="/mysite/assets/css/board.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -16,16 +17,11 @@
 	<div id="wrap">
 
 		<!-- header -->
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 
 		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>게시판</h2>
-				<ul>
-					<li><a href="">일반게시판</a></li>
-					<li><a href="">댓글게시판</a></li>
-				</ul>
-			</div>
+			<c:import url="/WEB-INF/views/includes/aside_board.jsp"></c:import>
+			
 			<!-- //aside -->
 
 			<div id="content">
@@ -45,7 +41,8 @@
 
 				<div id="board">
 					<div id="list">
-						<form action="" method="">
+						<form action="/mysite/board" method="post">
+						<input type="hidden" name="action" value="list">
 							<div class="form-group text-right">
 								<input type="text">
 								<button type="submit" id=btn_search>검색</button>
@@ -63,46 +60,20 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr class="last">
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
+								<!-- tbody 게시글 반복 출력 -->
+								<c:forEach items=${boardList }" var="bList" varStatus="status">
+									 <tr>
+										<td>${bList.no }</td>
+										<td class="text-left"><a href="/mysite/board?action=read&no=${bList.no }">${bList.title}</a></td>
+										<td>정우성</td>
+										<td>1232</td>
+										<td>2020-12-23</td>
+										<td>
+											<c:if test="${authUser.no = bList.no }">
+											<a href="/mysite/board?action=delete&no=${bList.no }">[삭제]</a></c:if>
+										</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 
@@ -125,8 +96,9 @@
 
 							<div class="clear"></div>
 						</div>
-						<a id="btn_write" href="">글쓰기</a>
-
+						<c:if test="${authUser != null }">
+							<a id="btn_write" href="/WEB-INF/views/board/writeForm.jsp">글쓰기</a>
+						</c:if>	
 					</div>
 					<!-- //list -->
 				</div>
