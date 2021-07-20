@@ -113,21 +113,19 @@ public class UserController extends HttpServlet {
 			UserVo userVo= (UserVo)session.getAttribute("authUser");
 			
 			//jsp attribute
-			request.setAttribute("authUser", userVo);
+			request.setAttribute("modifyUser", userVo);
 					
 			//forward
 			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyForm.jsp");
 		
-		} else if("update".equals(action)) {
-			//update
-			System.out.println("[update]");
+		} else if("modify".equals(action)) {
+			//modify
+			System.out.println("[modify]");
 				
-			HttpSession session = request.getSession();
-
 			//세션에서 로그인 유저의 no 추출
 			//parameter 추출
 			
-			int no = ((UserVo)session.getAttribute("authUser")).getNo();
+			int no = Integer.parseInt(request.getParameter("no"));
 			String id = request.getParameter("id");
 			String pw = request.getParameter("password");
 			String name = request.getParameter("name");
@@ -135,11 +133,11 @@ public class UserController extends HttpServlet {
 			
 			//VO 묶고 DB반영
 			UserDao userDao = new UserDao();
-			UserVo userVoUpdate = new UserVo(no, id, pw, name, gender);
-			userDao.userUpdate(userVoUpdate);
+			UserVo userVoModify = new UserVo(no, id, pw, name, gender);
+			userDao.userModify(userVoModify);
 			
 			//세션업데이트
-			request.getSession().setAttribute("authUser", userVoUpdate);
+			request.getSession().setAttribute("authUser", userVoModify);
 			
 			//redirect
 			WebUtil.redirect(request, response, "/mysite/main");

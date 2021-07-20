@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.javaex.vo.UserVo" %>
 
-<%
-	UserVo userVo = (UserVo)session.getAttribute("authUser");
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <!DOCTYPE html>
@@ -21,18 +19,13 @@
 	<div id="wrap">
 
 		<!-- //header -->
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 	
 		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>회원</h2>
-				<ul>
-					<li>회원정보</li>
-					<li>로그인</li>
-					<li>회원가입</li>
-				</ul>
-			</div>
+			
 			<!-- //aside -->
+			<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
+		
 
 			<div id="content">
 			
@@ -68,7 +61,7 @@
 							<!-- 이름 -->
 							<div class="form-group">
 								<label class="form-text" for="input-name">이름</label> 
-								<input type="text" id="input-name" name="name" value="<%=userVo.getName() %>" placeholder="이름을 입력하세요">
+								<input type="text" id="input-name" name="name" value="${ sessionScope.modifyUser.name }>" placeholder="이름을 입력하세요">
 							</div>
 	
 							<!-- 성별 -->
@@ -77,10 +70,10 @@
 								
 								<label for="rdo-male">남</label> 
 							
-								<input type="radio" id="rdo-male" name="gender" value="male" <% if("male".equals(userVo.getGender())) { %> checked <% } %>	 > 
+								<input type="radio" id="rdo-male" name="gender" value="male" checked >	  
 								
 								<label for="rdo-female">여</label> 
-								<input type="radio" id="rdo-female" name="gender" value="female"<% if("female".equals(userVo.getGender())) { %> checked <% } %>   > 
+								<input type="radio" id="rdo-female" name="gender" value="female"checked > 
 	
 							</div>
 	
@@ -88,6 +81,10 @@
 							<div class="button-area">
 								<button type="submit" id="btn-submit">회원정보수정</button>
 							</div>
+							
+							<input type="hidden" name="action" value="modify">
+							<input type="hidden" name="no" value="${ sessionScope.modifyUser.no }">
+							<input type="hidden" name="id" value="${ sessionScope.modifyUser.id }">
 							
 						</form>
 					
@@ -102,7 +99,7 @@
 		</div>
 		<!-- //container  -->
 
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 		
 	</div>

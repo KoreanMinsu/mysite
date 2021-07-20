@@ -79,8 +79,9 @@ public class UserDao {
 		close();
 		return count;
 	}
-	//update
-	public int userUpdate(UserVo userVo) {
+	
+	//modify
+	public int userModify(UserVo userVo) {
 		
 		int count = -1;
 		
@@ -102,7 +103,9 @@ public class UserDao {
 			pstmt.setString(3, userVo.getGender());
 			pstmt.setString(4, userVo.getId());
 			pstmt.setInt(5, userVo.getNo());		
+			
 			count = pstmt.executeUpdate();
+			
 			if(count >0) {
 				System.out.println(count+"수정됨");
 			}else {
@@ -151,6 +154,48 @@ public class UserDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		close();
+		return userVo;
+	}
+	
+
+	
+	public UserVo getUser(int no) {
+		UserVo userVo = null;
+		
+		getConnection();
+		
+		try {
+			String query= "";
+			query+= " SELECT ";
+			query+= " 		no, ";
+			query+= " 		id, ";
+			query+= " 	password, ";
+			query+= " 		name, ";
+			query+= " 		gender ";
+			query+= " FROM 	users ";
+			query+= " WHERE no = ? ";
+			
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int num = rs.getInt("no");
+				String id = rs.getString("id");
+				String pw = rs.getString("password");
+				String name = rs.getString("name");
+				String gender = rs.getString("gender");
+				
+				userVo = new UserVo(num, id, pw, name, gender);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		close();
 		return userVo;
 	}
